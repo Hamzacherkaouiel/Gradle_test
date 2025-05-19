@@ -36,7 +36,7 @@ pipeline {
         stage('Packaging stage') {
             agent {
                 docker {
-                   image 'docker:24.0-cli '
+                   image 'docker:24.0-cli'
                 }
             }
             steps {
