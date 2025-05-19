@@ -36,7 +36,8 @@ pipeline {
         stage('Packaging stage') {
             agent {
                 docker {
-                   image 'docker:24.0-cli'
+                  image 'docker:24.0-dind'
+                  args '--privileged' // Attention à la sécurité ici
                 }
             }
             steps {
