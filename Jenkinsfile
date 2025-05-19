@@ -42,7 +42,7 @@ pipeline {
             }
             steps {
                script {
-                  sh 'echo ${DOCKER_CREDS} | docker login -u ${DOCKER_CREDS} --password-stdin'
+                  sh 'echo ${DOCKER_CREDS} | docker login -u ${DOCKER_REGISTRY} --password-stdin'
                   sh 'docker build -t $DOCKER_REGISTRY/$DOCKER_IMAGE:$DOCKER_TAG .'
                   sh 'docker push $DOCKER_REGISTRY/$DOCKER_IMAGE:$DOCKER_TAG'
 
