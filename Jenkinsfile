@@ -4,7 +4,7 @@ pipeline {
        pollSCM('*/1 * * * *')
     }
     environment{
-       DOCKER_REGISTRY = 'killerquen'
+       DOCKER_REGISTRY = 'killerquen69'
        DOCKER_IMAGE = 'gradlespringboot'
        DOCKER_TAG = "${env.BUILD_NUMBER}"
        DOCKER_CREDS = credentials('killerqueen')
