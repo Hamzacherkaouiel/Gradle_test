@@ -1,9 +1,7 @@
 pipeline {
 
-   agent {
-      label 'FirstAgent'  // Votre agent existant
-   }
-    triggers {
+   agent none
+   triggers {
        pollSCM('*/1 * * * *')
    }
    stages {
