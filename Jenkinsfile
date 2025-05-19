@@ -7,7 +7,7 @@ pipeline {
        DOCKER_REGISTRY = 'killerquen69'
        DOCKER_IMAGE = 'gradlespringboot'
        DOCKER_TAG = "${env.BUILD_NUMBER}"
-       DOCKER_CREDS = credentials('killerqueen')
+       DOCKER_CREDS = credentials('killerquen69')
 
     }
 
