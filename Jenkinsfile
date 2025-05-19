@@ -7,7 +7,9 @@ pipeline {
    stages {
       stage('Building stage') {
           agent {
-             docker 'gradle:8.14.0-jdk21'
+             docker {
+                image 'gradle:8.14.0-jdk21'
+             }
            }
           steps {
               sh 'gradle build -x test'
@@ -16,7 +18,9 @@ pipeline {
       }
       stage('Testing stage') {
           agent {
-             docker 'gradle:8.14.0-jdk21'
+             docker {
+                 image 'gradle:8.14.0-jdk21'
+             }
 
           }
           steps {
