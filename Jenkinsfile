@@ -41,15 +41,14 @@ pipeline {
                 }
             }
             steps {
-               script {
-                  sh 'echo $DOCKER_CREDS | docker login -u killerquen69 --password-stdin'
-                  sh 'docker build -t $DOCKER_REGISTRY/$DOCKER_IMAGE:$DOCKER_TAG .'
-                  sh 'docker push $DOCKER_REGISTRY/$DOCKER_IMAGE:$DOCKER_TAG'
-
-               }
-
-
-            }
+                    withCredentials([usernamePassword(credentialsId: 'killerquen69', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh '''
+                            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+                            docker build -t $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG .
+                            docker push $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG
+                        '''
+                    }
+                }
 
         }
 
