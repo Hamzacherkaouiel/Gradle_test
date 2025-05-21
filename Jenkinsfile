@@ -6,7 +6,6 @@ pipeline {
     environment{
        DOCKER_IMAGE = 'gradlespringboot'
        DOCKER_TAG = "${env.BUILD_NUMBER}"
-       DOCKER_CREDS = credentials('killerquen69')
 
     }
 
@@ -32,6 +31,30 @@ pipeline {
                 sh 'gradle test'
             }
         }
+
+        stage("Sonar Qube") {
+
+            agent {
+                docker {
+                    image 'gradle:8.14.0-jdk21'
+
+                }
+            }
+            steps {
+            withSonarQubeEnv( installationName: 'sq1') {
+                sh '''
+                   gradle test jacocoTestReport sonarqube \
+                          -Dsonar.projectKey=jenkins \
+                          -Dsonar.projectName='jenkins'
+                   '''
+
+            }
+
+
+            }
+
+
+        }
         stage('Packaging stage') {
             agent {
                 docker {
@@ -50,6 +73,7 @@ pipeline {
                 }
 
         }
+
 
     }
 }
