@@ -110,6 +110,32 @@ pipeline {
           }
 
         }
+        stage ("Deploying") {
+           agent {
+              docker {
+                image 'bitnami/git:latest'
+              }
+           }
+           steps {
+             withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
+
+                sh '''
+                   git clone https://github.com/Hamzacherkaouiel/Gradle_test.git
+                   cd k8s
+                   sed -i "s|image: killerquen69/gradlespringboot:[^ ]*|image: killerquen69/gradlespringboot:$DOCKER_TAG|g" Manifest.yml
+                   cat Manifest.yml
+                   git add .
+                   git commit -m "update manifest"
+                   git remote set-url origin https://$GIT_USERNAME:$GIT_PASSWORD@github.com/Hamzacherkaouiel/Gradle_test.git
+                   git push -u origin main
+                   '''
+
+             }
+
+
+           }
+
+        }
 
 
     }
