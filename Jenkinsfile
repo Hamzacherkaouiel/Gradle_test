@@ -84,7 +84,7 @@ pipeline {
 
            }
            steps {
-              sh 'trivy killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
+              sh 'trivy image killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
 
            }
         }
