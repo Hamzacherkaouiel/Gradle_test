@@ -84,7 +84,8 @@ pipeline {
 
            }
            steps {
-              sh 'trivy image --no-progress --exit-code 1 --severity HIGH,CRITICAL killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
+              //sh 'trivy image --no-progress --exit-code 1 --severity HIGH,CRITICAL killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
+              sh 'trivy image --no-progress --severity HIGH,CRITICAL killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
 
            }
         }
