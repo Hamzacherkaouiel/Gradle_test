@@ -111,9 +111,7 @@ pipeline {
 
         }
         stage ("Deploying") {
-           agent {
-              label 'master'
-           }
+           agent any
            steps {
              withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
 
