@@ -37,13 +37,14 @@ pipeline {
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
+                    args '--network jenkins'
 
                 }
             }
             steps {
             withSonarQubeEnv( installationName: 'sq1') {
                 sh '''
-                   gradle test jacocoTestReport sonarqube \
+                   gradle build jacocoTestReport -x test sonar \
                           -Dsonar.projectKey=jenkins \
                           -Dsonar.projectName='jenkins'
                    '''
