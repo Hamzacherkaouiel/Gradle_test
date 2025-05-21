@@ -112,9 +112,7 @@ pipeline {
         }
         stage ("Deploying") {
            agent {
-              docker {
-                image 'mcp/git'
-              }
+              label 'master'
            }
            steps {
              withCredentials([usernamePassword(credentialsId: 'github', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
