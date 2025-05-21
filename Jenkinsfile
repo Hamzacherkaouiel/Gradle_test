@@ -113,7 +113,7 @@ pipeline {
         stage ("Deploying") {
            agent {
               docker {
-                image 'bitnami/git:latest'
+                image 'mcp/git'
               }
            }
            steps {
