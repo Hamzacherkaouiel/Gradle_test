@@ -44,7 +44,7 @@ pipeline {
             steps {
             withSonarQubeEnv( installationName: 'sq1') {
                 sh '''
-                   gradle build jacocoTestReport -x test sonar \
+                   gradle test jacocoTestReport sonar \
                           -Dsonar.projectKey=jenkins \
                           -Dsonar.projectName='jenkins'
                    '''
