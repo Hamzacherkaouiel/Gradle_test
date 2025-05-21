@@ -7,6 +7,7 @@ pipeline {
        DOCKER_IMAGE = 'gradlespringboot'
        DOCKER_TAG = "${env.BUILD_NUMBER}"
 
+
     }
 
     stages {
@@ -21,7 +22,7 @@ pipeline {
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
         }
-        stage('Testing stage') {
+        /*stage('Testing stage') {
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
@@ -55,7 +56,7 @@ pipeline {
             }
 
 
-        }
+        }*/
         stage('Packaging stage') {
             agent {
                 docker {
@@ -64,14 +65,48 @@ pipeline {
                 }
             }
             steps {
-                    withCredentials([usernamePassword(credentialsId: 'killerquen69', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                         sh '''
-                            echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-                            docker build -t $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG .
-                            docker push $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG
+
+                            docker build -t killerquen69/$DOCKER_IMAGE:$DOCKER_TAG .
+
                         '''
-                    }
+
                 }
+
+        }
+        stage ("Scanning Stage") {
+           agent {
+              docker {
+               image 'aquasec/trivy'
+               args '--entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock' // Attention à la sécurité ici
+
+              }
+
+           }
+           steps {
+              sh 'trivy killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
+
+           }
+        }
+        stage ("Pushing stage ") {
+          agent {
+            docker {
+               image 'docker:24.0-cli'
+               args '--entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock'
+
+            }
+          }
+          steps {
+            withCredentials([usernamePassword(credentialsId: 'killerquen69', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                  sh '''
+                     echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+                     docker push $DOCKER_USERNAME/$DOCKER_IMAGE:$DOCKER_TAG
+                     '''
+            }
+
+
+          }
 
         }
 
