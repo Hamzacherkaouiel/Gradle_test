@@ -6,8 +6,6 @@ pipeline {
     environment{
        DOCKER_IMAGE = 'gradlespringboot'
        DOCKER_TAG = "${env.BUILD_NUMBER}"
-
-
     }
 
     stages {
@@ -22,7 +20,7 @@ pipeline {
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
         }
-        /*stage('Testing stage') {
+        stage('Testing stage') {
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
@@ -32,14 +30,21 @@ pipeline {
                 sh 'gradle test'
             }
         }
+        stage('Dependencies check') {
+             agent any
+             steps {
+                sh '''
+                   dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'DP-Check'
+                   '''
+             }
+        }
 
-        stage("Sonar Qube") {
+        /*stage("Sonar Qube") {
 
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
                     args '--network jenkins'
-
                 }
             }
             steps {
@@ -49,14 +54,9 @@ pipeline {
                           -Dsonar.projectKey=jenkins \
                           -Dsonar.projectName='jenkins'
                    '''
-
             }
-
-
             }
-
-
-        }*/
+        }
         stage('Packaging stage') {
             agent {
                 docker {
@@ -66,13 +66,9 @@ pipeline {
             }
             steps {
                         sh '''
-
                             docker build -t killerquen69/$DOCKER_IMAGE:$DOCKER_TAG .
-
                         '''
-
                 }
-
         }
         stage ("Scanning Stage") {
            agent {
@@ -134,7 +130,7 @@ pipeline {
 
            }
 
-        }
+        }*/
 
 
     }
