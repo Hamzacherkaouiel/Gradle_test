@@ -37,6 +37,7 @@ pipeline {
 
                 dependencyCheck additionalArguments: '--format HTML --format XML --nvdApiKey $API_KEY',
                                odcInstallation: 'DP-Check'
+                }
              }
         }
 
