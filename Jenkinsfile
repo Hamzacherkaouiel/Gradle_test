@@ -33,9 +33,8 @@ pipeline {
         stage('Dependencies check') {
              agent any
              steps {
-                sh '''
-                   dependencyCheck additionalArguments: '--format HTML --format XML', odcInstallation: 'DP-Check'
-                   '''
+                dependencyCheck additionalArguments: '--format HTML --format XML',
+                               odcInstallation: 'DP-Check'
              }
         }
 
