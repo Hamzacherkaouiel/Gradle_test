@@ -33,7 +33,9 @@ pipeline {
         stage('Dependencies check') {
              agent any
              steps {
-                dependencyCheck additionalArguments: '--format HTML --format XML',
+                withCredentials([usernamePassword(credentialsId: 'Dp', usernameVariable: 'NAME', passwordVariable: 'API_KEY')]) {
+
+                dependencyCheck additionalArguments: '--format HTML --format XML --nvdApiKey $API_KEY',
                                odcInstallation: 'DP-Check'
              }
         }
