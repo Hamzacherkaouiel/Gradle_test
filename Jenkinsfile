@@ -30,18 +30,8 @@ pipeline {
                 sh 'gradle test'
             }
         }
-        stage('Dependencies check') {
-             agent any
-             steps {
-                withCredentials([usernamePassword(credentialsId: 'Dp', usernameVariable: 'NAME', passwordVariable: 'API_KEY')]) {
 
-                dependencyCheck additionalArguments: '--format HTML --format XML --nvdApiKey $API_KEY',
-                               odcInstallation: 'DP-Check'
-                }
-             }
-        }
-
-        /*stage("Sonar Qube") {
+        stage("Sonar Qube") {
 
             agent {
                 docker {
@@ -63,7 +53,7 @@ pipeline {
             agent {
                 docker {
                   image 'docker:24.0-cli'
-                  args '--entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock' // Attention à la sécurité ici
+                  args '--entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
             steps {
@@ -132,7 +122,7 @@ pipeline {
 
            }
 
-        }*/
+        }
 
 
     }
