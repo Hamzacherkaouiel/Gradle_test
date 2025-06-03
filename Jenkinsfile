@@ -8,7 +8,7 @@ pipeline {
        DOCKER_TAG = "${env.BUILD_NUMBER}"
     }
 
-    stages {
+    /*stages {
         stage('Building stage') {
             agent {
                 docker {
@@ -19,7 +19,7 @@ pipeline {
                 sh 'gradle build -x test'
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
-        }
+        }*/
         /*stage('Testing stage') {
             agent {
                 docker {
@@ -31,7 +31,7 @@ pipeline {
             }
         }*/
 
-        stage("Sonar Qube") {
+        /*stage("Sonar Qube") {
 
             agent {
                 docker {
@@ -48,7 +48,7 @@ pipeline {
                    '''
             }
             }
-        }
+        }*/
         stage('Packaging stage') {
             agent {
                 docker {
@@ -106,6 +106,7 @@ pipeline {
                 sh '''
                    git config --global user.email "hamza.elmalki1234@gmail.com"
                    git config --global user.name "Hamzacherkaouiel"
+                   git config --global pull.rebase false
                    git checkout main
                    git pull origin main
 
