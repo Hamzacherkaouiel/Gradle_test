@@ -8,8 +8,8 @@ pipeline {
        DOCKER_TAG = "${env.BUILD_NUMBER}"
     }
 
-    /*stages {
-        stage('Building stage') {
+    stages {
+        /*stage('Building stage') {
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
