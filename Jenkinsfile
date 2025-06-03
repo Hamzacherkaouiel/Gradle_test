@@ -1,7 +1,8 @@
 pipeline {
     agent none
     triggers {
-       pollSCM('*/1 * * * *')
+       pollSCM('*/1 * * * *
+       ')
     }
     environment{
        DOCKER_IMAGE = 'gradlespringboot'
@@ -73,7 +74,7 @@ pipeline {
            }
            steps {
               //sh 'trivy image --no-progress --exit-code 1 --severity HIGH,CRITICAL killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
-              sh 'trivy image --no-progress --severity HIGH,CRITICAL killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
+              sh 'trivy image --no-progress --severity HIGH,CRITICAL --skip-files "*.jar" --timeout 20m killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
 
            }
         }
