@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: jenkinstest
-          image: killerquen69/gradlespringboot:60
+          image: killerquen69/gradlespringboot:65
           ports:
             - containerPort: 8080
 
