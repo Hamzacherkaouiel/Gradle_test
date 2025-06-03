@@ -9,7 +9,7 @@ pipeline {
     }
 
     stages {
-        /*stage('Building stage') {
+        stage('Building stage') {
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
@@ -19,7 +19,7 @@ pipeline {
                 sh 'gradle build -x test'
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
-        }*/
+        }
         /*stage('Testing stage') {
             agent {
                 docker {
@@ -31,7 +31,7 @@ pipeline {
             }
         }*/
 
-        /*stage("Sonar Qube") {
+        stage("Sonar Qube") {
 
             agent {
                 docker {
@@ -48,7 +48,7 @@ pipeline {
                    '''
             }
             }
-        }*/
+        }
         stage('Packaging stage') {
             agent {
                 docker {
@@ -62,7 +62,7 @@ pipeline {
                         '''
                 }
         }
-        /*stage ("Scanning Stage") {
+        stage ("Scanning Stage") {
            agent {
               docker {
                image 'aquasec/trivy'
@@ -76,7 +76,7 @@ pipeline {
               sh 'trivy image --no-progress --severity HIGH,CRITICAL --skip-files "*.jar" --timeout 20m killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
 
            }
-        }*/
+        }
         stage ("Pushing stage ") {
           agent {
             docker {
