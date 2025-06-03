@@ -106,8 +106,8 @@ pipeline {
                 sh '''
                    git config --global user.email "hamza.elmalki1234@gmail.com"
                    git config --global user.name "Hamzacherkaouiel"
-                   git pull origin main
                    git checkout main
+                   git pull origin main
 
                    cd k8s
                    sed -i "s|image: killerquen69/gradlespringboot:[^ ]*|image: killerquen69/gradlespringboot:$DOCKER_TAG|g" Manifest.yml
