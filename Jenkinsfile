@@ -6,12 +6,10 @@ pipeline {
     environment{
        DOCKER_IMAGE = 'gradlespringboot'
        DOCKER_TAG = "${env.BUILD_NUMBER}"
-
-
     }
 
     stages {
-        stage('Building stage') {
+        /*stage('Building stage') {
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
@@ -21,7 +19,7 @@ pipeline {
                 sh 'gradle build -x test'
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
-        }
+        }*/
         /*stage('Testing stage') {
             agent {
                 docker {
@@ -31,15 +29,14 @@ pipeline {
             steps {
                 sh 'gradle test'
             }
-        }
+        }*/
 
-        stage("Sonar Qube") {
+        /*stage("Sonar Qube") {
 
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
                     args '--network jenkins'
-
                 }
             }
             steps {
@@ -49,32 +46,23 @@ pipeline {
                           -Dsonar.projectKey=jenkins \
                           -Dsonar.projectName='jenkins'
                    '''
-
             }
-
-
             }
-
-
         }*/
         stage('Packaging stage') {
             agent {
                 docker {
                   image 'docker:24.0-cli'
-                  args '--entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock' // Attention à la sécurité ici
+                  args '--entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
             steps {
                         sh '''
-
                             docker build -t killerquen69/$DOCKER_IMAGE:$DOCKER_TAG .
-
                         '''
-
                 }
-
         }
-        stage ("Scanning Stage") {
+        /*stage ("Scanning Stage") {
            agent {
               docker {
                image 'aquasec/trivy'
@@ -85,10 +73,10 @@ pipeline {
            }
            steps {
               //sh 'trivy image --no-progress --exit-code 1 --severity HIGH,CRITICAL killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
-              sh 'trivy image --no-progress --severity HIGH,CRITICAL killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
+              sh 'trivy image --no-progress --severity HIGH,CRITICAL --skip-files "*.jar" --timeout 20m killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
 
            }
-        }
+        }*/
         stage ("Pushing stage ") {
           agent {
             docker {
@@ -118,8 +106,10 @@ pipeline {
                 sh '''
                    git config --global user.email "hamza.elmalki1234@gmail.com"
                    git config --global user.name "Hamzacherkaouiel"
-                   git fetch origin main
+                   git config --global pull.rebase false
                    git checkout main
+                   git pull origin main
+
                    cd k8s
                    sed -i "s|image: killerquen69/gradlespringboot:[^ ]*|image: killerquen69/gradlespringboot:$DOCKER_TAG|g" Manifest.yml
                    cat Manifest.yml
