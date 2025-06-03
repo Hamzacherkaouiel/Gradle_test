@@ -1,8 +1,7 @@
 pipeline {
     agent none
     triggers {
-       pollSCM('*/1 * * * *
-       ')
+       pollSCM('*/1 * * * *')
     }
     environment{
        DOCKER_IMAGE = 'gradlespringboot'
