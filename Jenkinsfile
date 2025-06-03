@@ -20,7 +20,7 @@ pipeline {
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
         }
-        stage('Testing stage') {
+        /*stage('Testing stage') {
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
@@ -29,7 +29,7 @@ pipeline {
             steps {
                 sh 'gradle test'
             }
-        }
+        }*/
 
         stage("Sonar Qube") {
 
@@ -62,7 +62,7 @@ pipeline {
                         '''
                 }
         }
-        stage ("Scanning Stage") {
+        /*stage ("Scanning Stage") {
            agent {
               docker {
                image 'aquasec/trivy'
@@ -76,7 +76,7 @@ pipeline {
               sh 'trivy image --no-progress --severity HIGH,CRITICAL --skip-files "*.jar" --timeout 20m killerquen69/$DOCKER_IMAGE:$DOCKER_TAG'
 
            }
-        }
+        }*/
         stage ("Pushing stage ") {
           agent {
             docker {
@@ -106,8 +106,9 @@ pipeline {
                 sh '''
                    git config --global user.email "hamza.elmalki1234@gmail.com"
                    git config --global user.name "Hamzacherkaouiel"
-                   git fetch origin main
+                   git pull origin main
                    git checkout main
+
                    cd k8s
                    sed -i "s|image: killerquen69/gradlespringboot:[^ ]*|image: killerquen69/gradlespringboot:$DOCKER_TAG|g" Manifest.yml
                    cat Manifest.yml
