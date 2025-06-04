@@ -39,7 +39,7 @@ pipeline {
                                 -e POSTGRES_DB=test_db \
                                 -e POSTGRES_USER=test_user \
                                 -e POSTGRES_PASSWORD=test_pass \
-                                postgres:15
+                                postgres
                         '''
                     }
                 }
