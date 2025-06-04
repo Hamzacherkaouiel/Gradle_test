@@ -65,7 +65,7 @@ sonarqube {
 		property("sonar.java.source", "21")
 		property("sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
 		property("sonar.junit.reportPaths", "${buildDir}/test-results/test")
-		property("sonar.gradle.skipCompile", "true")
+		
 	}
 }
 
