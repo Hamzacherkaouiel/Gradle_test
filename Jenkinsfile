@@ -39,6 +39,9 @@ pipeline {
                      args '--network jenkins --entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
+            environment {
+                TESTCONTAINERS_RYUK_DISABLED = 'true' // désactive Ryuk temporairement
+            }
             steps {
             withSonarQubeEnv( installationName: 'sq1') {
                 sh '''
