@@ -153,9 +153,9 @@ pipeline {
     }
     post {
         always {
-            node {
+
                 sh 'docker rm -f pg || true'
-            }
+
         }
     }
 }
