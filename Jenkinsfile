@@ -37,6 +37,7 @@ pipeline {
                 docker {
                     image 'gradle:8.14.0-jdk21'
                     args '--network jenkins'
+                    args '--entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
             steps {
@@ -49,7 +50,7 @@ pipeline {
             }
             }
         }
-        stage('Packaging stage') {
+        /*stage('Packaging stage') {
             agent {
                 docker {
                   image 'docker:24.0-cli'
@@ -124,7 +125,7 @@ pipeline {
 
            }
 
-        }
+        }*/
 
 
     }

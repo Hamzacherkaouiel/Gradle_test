@@ -33,11 +33,21 @@ dependencies {
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.graphql:spring-graphql-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	runtimeOnly("org.postgresql:postgresql")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+	val testcontainersVersion = "1.19.3"
+	testImplementation("org.testcontainers:junit-jupiter:$testcontainersVersion")
+	testImplementation("org.testcontainers:postgresql:$testcontainersVersion")
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
 	finalizedBy(tasks.jacocoTestReport)
+}
+tasks.test {
+	useJUnitPlatform()
 }
 
 tasks.jacocoTestReport {
