@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class JenkinsAppApplicationTests {
 
 	@Container
-	static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
+	static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres")
 			.withDatabaseName("test_db")
 			.withUsername("test_user")
 			.withPassword("test_pass")
