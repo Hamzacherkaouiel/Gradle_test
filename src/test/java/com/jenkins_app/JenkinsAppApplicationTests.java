@@ -20,12 +20,13 @@ public class JenkinsAppApplicationTests {
 			.withDatabaseName("test_db")
 			.withUsername("test_user")
 			.withPassword("test_pass")
-	        .withNetworkMode("jenkins");
+	        .withNetworkMode("jenkins")
+			.withNetworkAliases("pg");
 
 	@DynamicPropertySource
 	static void overrideProps(DynamicPropertyRegistry registry) {
 		registry.add("spring.datasource.url", () ->
-				postgres.getJdbcUrl() // <-- évite localhost en dur
+				"jdbc:postgresql://pg:5432/test_db"
 		);
 		registry.add("spring.datasource.username", postgres::getUsername);
 		registry.add("spring.datasource.password", postgres::getPassword);
