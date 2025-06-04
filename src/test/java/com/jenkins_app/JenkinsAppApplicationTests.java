@@ -15,13 +15,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Testcontainers
 public class JenkinsAppApplicationTests {
 
-	@Container
+	/*@Container
 	static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres")
 			.withDatabaseName("test_db")
 			.withUsername("test_user")
 			.withPassword("test_pass")
 	        .withNetworkMode("jenkins")
-			.withNetworkAliases("pg");
+			.withNetworkAliases("pg");*/
 
 	@DynamicPropertySource
 	static void overrideProps(DynamicPropertyRegistry registry) {

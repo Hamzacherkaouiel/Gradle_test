@@ -6,6 +6,9 @@ pipeline {
     environment{
        DOCKER_IMAGE = 'gradlespringboot'
        DOCKER_TAG = "${env.BUILD_NUMBER}"
+       DATABASE_NAME = test_db
+       DATABASE_USER = test_user
+       DATABASE_PASS = test_pass
     }
 
     stages {
@@ -36,9 +39,9 @@ pipeline {
                         sh '''
                             docker rm -f pg || true
                             docker run -d --name pg --network jenkins \
-                                -e POSTGRES_DB=test_db \
-                                -e POSTGRES_USER=test_user \
-                                -e POSTGRES_PASSWORD=test_pass \
+                                -e POSTGRES_DB=$DATABASE_NAME \
+                                -e POSTGRES_USER=$DATABASE_USER \
+                                -e POSTGRES_PASSWORD=$DATABASE_PASS \
                                 postgres
                         '''
                     }
@@ -148,6 +151,11 @@ pipeline {
            }
 
         }*/
+        post {
+           always {
+              sh 'docker rm -f pg || true'
+           }
+        }
 
 
     }
