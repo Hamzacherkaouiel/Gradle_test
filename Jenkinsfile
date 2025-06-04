@@ -62,9 +62,7 @@ pipeline {
                      '''
                 }
             }
-            environment {
-                TESTCONTAINERS_RYUK_DISABLED = 'true' // désactive Ryuk temporairement
-            }
+
             steps {
             withSonarQubeEnv( installationName: 'sq1') {
                 sh '''
@@ -151,12 +149,11 @@ pipeline {
            }
 
         }*/
-        post {
-           always {
-              sh 'docker rm -f pg || true'
-           }
-        }
 
-
+    }
+    post {
+       always {
+            sh 'docker rm -f pg || true'
+       }
     }
 }
