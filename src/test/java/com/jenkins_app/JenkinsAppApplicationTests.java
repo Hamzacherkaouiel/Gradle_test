@@ -19,7 +19,8 @@ public class JenkinsAppApplicationTests {
 	static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15")
 			.withDatabaseName("test_db")
 			.withUsername("test_user")
-			.withPassword("test_pass");
+			.withPassword("test_pass")
+	        .withNetworkMode("jenkins");
 
 	@DynamicPropertySource
 	static void overrideProps(DynamicPropertyRegistry registry) {
