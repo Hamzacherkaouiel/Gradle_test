@@ -152,8 +152,10 @@ pipeline {
 
     }
     post {
-       always {
-            sh 'docker rm -f pg || true'
-       }
+        always {
+            node {
+                sh 'docker rm -f pg || true'
+            }
+        }
     }
 }
