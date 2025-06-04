@@ -34,7 +34,7 @@ pipeline {
              agent any
                     steps {
                         sh '''
-                            docker rm -f pg || true
+
                             docker run -d --name pg --network jenkins \
                                 -e POSTGRES_DB=test_db \
                                 -e POSTGRES_USER=test_user \
