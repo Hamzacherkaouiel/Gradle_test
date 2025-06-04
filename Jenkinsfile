@@ -6,9 +6,9 @@ pipeline {
     environment{
        DOCKER_IMAGE = 'gradlespringboot'
        DOCKER_TAG = "${env.BUILD_NUMBER}"
-       DATABASE_NAME = test_db
-       DATABASE_USER = test_user
-       DATABASE_PASS = test_pass
+       DATABASE_NAME = 'test_db'
+       DATABASE_USER = 'test_user'
+       DATABASE_PASS = 'test_pass'
     }
 
     stages {
