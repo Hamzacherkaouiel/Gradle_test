@@ -28,8 +28,8 @@ public class JenkinsAppApplicationTests {
 		registry.add("spring.datasource.url", () ->
 				"jdbc:postgresql://pg:5432/test_db"
 		);
-		registry.add("spring.datasource.username", postgres::getUsername);
-		registry.add("spring.datasource.password", postgres::getPassword);
+		registry.add("spring.datasource.username", ()-> "test_user");
+		registry.add("spring.datasource.password", ()-> "test_pass");
 	}
 	@Autowired
 	Repo repo;
