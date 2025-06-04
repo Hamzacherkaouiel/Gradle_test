@@ -40,6 +40,8 @@ dependencies {
 	val testcontainersVersion = "1.19.3"
 	testImplementation("org.testcontainers:junit-jupiter:$testcontainersVersion")
 	testImplementation("org.testcontainers:postgresql:$testcontainersVersion")
+	testImplementation("org.mockito:mockito-core:5.12.0")
+	testImplementation("org.mockito:mockito-junit-jupiter:5.12.0")
 }
 
 tasks.withType<Test> {
@@ -65,7 +67,7 @@ sonarqube {
 		property("sonar.java.source", "21")
 		property("sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
 		property("sonar.junit.reportPaths", "${buildDir}/test-results/test")
-		
+
 	}
 }
 

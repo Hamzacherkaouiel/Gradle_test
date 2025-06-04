@@ -15,14 +15,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 @Testcontainers
 public class JenkinsAppApplicationTests {
 
-	/*@Container
-	static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres")
-			.withDatabaseName("test_db")
-			.withUsername("test_user")
-			.withPassword("test_pass")
-	        .withNetworkMode("jenkins")
-			.withNetworkAliases("pg");*/
-
 	@DynamicPropertySource
 	static void overrideProps(DynamicPropertyRegistry registry) {
 		registry.add("spring.datasource.url", () ->
