@@ -36,7 +36,14 @@ pipeline {
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
-                     args '--network jenkins --entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock'
+                     //args '--network jenkins --entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock'
+                     args '''
+                           --network jenkins
+                           --add-host=host.docker.internal:host-gateway
+                           --entrypoint=""
+                           --user root
+                           -v /var/run/docker.sock:/var/run/docker.sock
+                     '''
                 }
             }
             environment {
