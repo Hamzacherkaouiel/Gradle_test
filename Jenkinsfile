@@ -9,7 +9,7 @@ pipeline {
     }
 
     stages {
-        stage('Building stage') {
+        /*stage('Building stage') {
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
@@ -19,7 +19,7 @@ pipeline {
                 sh 'gradle build -x test'
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
-        }
+        }*/
         /*stage('Testing stage') {
             agent {
                 docker {
@@ -36,8 +36,7 @@ pipeline {
             agent {
                 docker {
                     image 'gradle:8.14.0-jdk21'
-                    args '--network jenkins'
-                    args '--entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock'
+                     args '--network jenkins --entrypoint="" --user root -v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
             steps {
