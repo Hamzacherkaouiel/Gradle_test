@@ -36,7 +36,7 @@ dependencies {
 	runtimeOnly("org.postgresql:postgresql")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-
+	testImplementation ("com.h2database:h2")
 	val testcontainersVersion = "1.19.3"
 	testImplementation("org.testcontainers:junit-jupiter:$testcontainersVersion")
 	testImplementation("org.testcontainers:postgresql:$testcontainersVersion")

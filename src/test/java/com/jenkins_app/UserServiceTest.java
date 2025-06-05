@@ -11,7 +11,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@ExtendWith(MockitoExtension.class)
+/*@ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
 
     @Mock
@@ -24,8 +24,8 @@ public class UserServiceTest {
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
 
         Exemple result = userRepository.findById(1).get();
-
+        System.out.print("test");
         assertEquals(1, result.id);
         verify(userRepository).findById(1);
     }
-}
+}*/

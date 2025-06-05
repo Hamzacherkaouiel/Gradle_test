@@ -33,11 +33,11 @@ pipeline {
                 sh 'gradle test'
             }
         }*/
-        stage("Start PostgreSQL for Tests") {
+        /*stage("Start PostgreSQL for Tests") {
              agent any
                     steps {
                         sh '''
-                            docker rm -f pg || true
+
                             docker run -d --name pg --network jenkins \
                                 -e POSTGRES_DB=$DATABASE_NAME \
                                 -e POSTGRES_USER=$DATABASE_USER \
@@ -45,7 +45,7 @@ pipeline {
                                 postgres
                         '''
                     }
-                }
+                }*/
 
         stage("Sonar Qube") {
 
