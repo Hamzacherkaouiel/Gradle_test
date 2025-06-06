@@ -6,8 +6,17 @@ import jakarta.persistence.*;
 @Table(name = "EXEMPLE")
 public class Exemple {
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Id
     public int id;
+    public String name;
 
     public Exemple() {
     }

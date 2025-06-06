@@ -4,6 +4,7 @@ metadata:
 
 
   name: headless
+  namespace: meta
 spec:
    selector:
      app: mongotest

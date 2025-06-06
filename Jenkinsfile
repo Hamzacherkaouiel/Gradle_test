@@ -23,6 +23,22 @@ pipeline {
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
         }*/
+        stage ('sca stage') {
+           agent {
+              docker {
+                 image 'gradle:8.14.0-jdk21'
+              }
+           }
+           steps {
+               withCredentials([usernamePassword(credentialsId: 'sca', usernameVariable: 'USERNAME', passwordVariable: 'API_KEY')]) {
+
+                   sh './gradlew dependencyCheckAnalyze -Dorg.owasp.dependencycheck.nvd.api.key=$API_KEY'
+
+               }
+
+           }
+
+        }
         /*stage('Testing stage') {
             agent {
                 docker {
@@ -151,11 +167,11 @@ pipeline {
         }*/
 
     }
-    post {
+    /*post {
         always {
 
                 sh 'docker rm -f pg || true'
 
         }
-    }
+    }*/
 }
