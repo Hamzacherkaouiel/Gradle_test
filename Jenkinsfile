@@ -35,8 +35,10 @@ pipeline {
                   sh '''
                      chmod +x gradlew
                      ./gradlew dependencies --write-locks
+                     find . -name "*.lockfile" -type f
+                     ls -la gradle/
                      '''
-                  archiveArtifacts artifacts: '**/*.lockfile', allowEmptyArchive: true
+                  archiveArtifacts artifacts: 'gradle/dependency-locks/**', allowEmptyArchive: true
               }
 
 
