@@ -23,6 +23,24 @@ pipeline {
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
         }*/
+        stage("generate dependencies") {
+           agent {
+              docker {
+                  image 'gradle:8.14.0-jdk21'
+
+              }
+              steps{
+
+                  sh '''
+                     chmod +x gradlew
+                     ./gradlew dependencies --write-locks
+                     '''
+                  archiveArtifacts artifacts: '**/*.lockfile', allowEmptyArchive: true
+              }
+
+           }
+
+        }
         stage ('sca stage') {
            agent {
               docker {
@@ -33,7 +51,7 @@ pipeline {
            steps {
 
                    sh '''
-                      trivy fs --cache-dir /tmp/trivy-cache --severity HIGH,CRITICAL build.gradle.kts
+                      trivy fs --cache-dir /tmp/trivy-cache --severity HIGH,CRITICAL .
                       '''
 
 
