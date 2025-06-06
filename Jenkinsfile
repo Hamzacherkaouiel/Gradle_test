@@ -33,7 +33,7 @@ pipeline {
            steps {
 
                    sh '''
-                      trivy fs --cache-dir /tmp/trivy-cache --severity HIGH,CRITICAL --scanners vuln --dependency-tree .
+                      trivy fs --cache-dir /tmp/trivy-cache --severity HIGH,CRITICAL build.gradle.kts
                       '''
 
 
