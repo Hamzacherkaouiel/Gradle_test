@@ -33,7 +33,7 @@ pipeline {
            steps {
 
                    sh '''
-                      trivy fs --cache-dir /tmp/trivy-cache --severity HIGH,CRITICAL .
+                      trivy fs --cache-dir /tmp/trivy-cache --severity HIGH,CRITICAL --scanners vuln --dependency-tree .
                       '''
 
 
