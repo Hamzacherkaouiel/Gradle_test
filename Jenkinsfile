@@ -39,7 +39,7 @@ pipeline {
                   archiveArtifacts artifacts: '**/*.lockfile', allowEmptyArchive: true
               }
 
-           }
+
 
         }
         stage ('sca stage') {
