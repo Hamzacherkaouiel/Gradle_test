@@ -4,6 +4,8 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.7"
 	id("org.sonarqube") version "4.4.1.3373"
 	id("jacoco")
+	id("org.owasp.dependencycheck") version "9.0.7"
+
 }
 
 group = "com"
