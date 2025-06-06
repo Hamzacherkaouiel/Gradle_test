@@ -34,7 +34,7 @@ pipeline {
 
                    sh '''
                       chmod +x gradlew
-                      ./gradlew dependencyCheckAnalyze --project-prop org.owasp.dependencycheck.nvd.api.key=$API_KEY
+                      ./gradlew dependencyCheckAnalyze -Dorg.owasp.dependencycheck.nvd.api.key=$API_KEY
                       '''
 
                }
