@@ -29,6 +29,7 @@ pipeline {
                   image 'gradle:8.14.0-jdk21'
 
               }
+           }
               steps{
 
                   sh '''
