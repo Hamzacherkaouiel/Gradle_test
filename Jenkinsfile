@@ -32,7 +32,10 @@ pipeline {
            steps {
                withCredentials([usernamePassword(credentialsId: 'sca', usernameVariable: 'USERNAME', passwordVariable: 'API_KEY')]) {
 
-                   sh './gradlew dependencyCheckAnalyze -Dorg.owasp.dependencycheck.nvd.api.key=$API_KEY'
+                   sh '''
+                      chmod +x gradlew
+                      ./gradlew dependencyCheckAnalyze -Dorg.owasp.dependencycheck.nvd.api.key=$API_KEY
+                      '''
 
                }
 
