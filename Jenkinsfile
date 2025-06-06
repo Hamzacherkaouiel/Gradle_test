@@ -26,18 +26,16 @@ pipeline {
         stage ('sca stage') {
            agent {
               docker {
-                 image 'gradle:8.14.0-jdk21'
+                 image 'aquasec/trivy'
               }
            }
            steps {
-               withCredentials([usernamePassword(credentialsId: 'sca', usernameVariable: 'USERNAME', passwordVariable: 'API_KEY')]) {
 
                    sh '''
-                      chmod +x gradlew
-                      ./gradlew dependencyCheckAnalyze -Dorg.owasp.dependencycheck.nvd.api.key=$API_KEY
+                      trivy fs --severity HIGH,CRITICAL .
                       '''
 
-               }
+
 
            }
 
