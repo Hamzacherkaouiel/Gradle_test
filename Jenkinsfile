@@ -23,45 +23,38 @@ pipeline {
                 archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
             }
         }*/
-        stage("generate dependencies") {
-           agent {
-              docker {
-                  image 'gradle:8.14.0-jdk21'
+        /*stage("generate dependencies") {
+                    agent {
+                       docker {
+                           image 'gradle:8.14.0-jdk21'
 
-              }
-           }
-              steps{
+                       }
+                    }
+                       steps{
 
-                  sh '''
-                     chmod +x gradlew
-                     ./gradlew dependencies --write-locks
-                     find . -name "*.lockfile" -type f
-                     ls -la gradle/
-                     '''
-                  archiveArtifacts artifacts: 'gradle/dependency-locks/**', allowEmptyArchive: true
-              }
-
-
-
-        }
-        stage ('sca stage') {
-           agent {
-              docker {
-                 image 'aquasec/trivy'
-                 args '--entrypoint=""'
-              }
-           }
-           steps {
-
-                   sh '''
-                      trivy fs --cache-dir /tmp/trivy-cache --severity HIGH,CRITICAL .
-                      '''
+                           sh '''
+                              chmod +x gradlew
+                              ./gradlew dependencies --write-locks
+                              find . -name "*.lockfile" -type f
+                              ls -la gradle/
+                              '''
+                           archiveArtifacts artifacts: 'gradle/dependency-locks/**', allowEmptyArchive: true
+                       }
 
 
 
-           }
+                 }*/
+                 stage ('sca stage') {
 
-        }
+                    steps {
+
+                           dependencyCheck additionalArguments: '--format HTML', nvdCredentialsId: 'owasp', odcInstallation: 'DP-Check'
+
+
+
+                    }
+
+                 }
         /*stage('Testing stage') {
             agent {
                 docker {

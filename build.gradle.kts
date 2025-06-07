@@ -62,6 +62,10 @@ tasks.jacocoTestReport {
 	}
 	dependsOn(tasks.test)
 }
+dependencyLocking {
+	lockAllConfigurations()
+}
+
 
 sonarqube {
 	properties {
